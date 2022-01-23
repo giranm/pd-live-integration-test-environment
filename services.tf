@@ -90,3 +90,10 @@ resource "pagerduty_service_dependency" "service_dependencies" {
     }
   }
 }
+
+resource "pagerduty_service_integration" "service_integrations" {
+  for_each = local.services
+  name     = "API V2"
+  type     = "events_api_v2_inbound_integration"
+  service  = pagerduty_service.services[each.key].id
+}
