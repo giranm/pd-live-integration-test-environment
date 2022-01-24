@@ -64,7 +64,7 @@ resource "pagerduty_business_service" "business_services" {
 resource "pagerduty_service" "services" {
   for_each                = local.services
   name                    = each.value.name
-  auto_resolve_timeout    = "null"
+  auto_resolve_timeout    = 3600
   acknowledgement_timeout = "null"
   escalation_policy       = each.value.escalation_policy
   alert_creation          = "create_alerts_and_incidents"
