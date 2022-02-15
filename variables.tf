@@ -19,3 +19,8 @@ variable "SERVICENOW_USER" {
 variable "SERVICENOW_PASSWORD" {
   type = string
 }
+
+# Custom Incident Action
+variable "CUSTOM_INCIDENT_ACTION_URL" {
+  type = string
+}

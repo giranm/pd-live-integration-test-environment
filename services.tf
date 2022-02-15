@@ -110,3 +110,11 @@ resource "pagerduty_extension_servicenow" "servicenow_extension" {
   task_type         = "incident"
   referer           = "None"
 }
+
+resource "pagerduty_extension" "custom_incident_action_extension" {
+  for_each          = local.services
+  name              = "Restart Service"
+  endpoint_url      = var.CUSTOM_INCIDENT_ACTION_URL
+  extension_schema  = data.pagerduty_extension_schema.custom_incident_action.id
+  extension_objects = [pagerduty_service.services[each.key].id]
+}
