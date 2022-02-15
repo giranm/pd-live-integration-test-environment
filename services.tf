@@ -97,3 +97,16 @@ resource "pagerduty_service_integration" "service_integrations" {
   type     = "events_api_v2_inbound_integration"
   service  = pagerduty_service.services[each.key].id
 }
+
+resource "pagerduty_extension_servicenow" "servicenow_extension" {
+  for_each          = local.services
+  name              = "ServiceNow"
+  extension_schema  = data.pagerduty_extension_schema.servicenow_webhook.id
+  extension_objects = [pagerduty_service.services[each.key].id]
+  target            = var.SERVICENOW_TARGET_URL
+  snow_user         = var.SERVICENOW_USER
+  snow_password     = var.SERVICENOW_PASSWORD
+  sync_options      = "manual_sync"
+  task_type         = "incident"
+  referer           = "None"
+}
